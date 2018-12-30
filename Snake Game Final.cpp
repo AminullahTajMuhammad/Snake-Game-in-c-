@@ -1,11 +1,9 @@
 /*
-
 Snake Game with AI(Artifical Intelligence) using C++ 98.
 Developed By: Aminullah Taj Muhammad, Zeeshan Anwar & Asad Tagar
 Designed by: Zeeshan Anwar.
 Testing By: Asad Tagar
 Bug Fixed by: Aminullah Taj Muhammad
-
 */
 
 #include<iostream>
@@ -145,10 +143,10 @@ public:
 	//============== Initial lenght of Computer snake  =============//
 	void Comp_InitSnake(int len, int c_x, int c_y, char direction) {
 		ilength = len;
-		for(int i=ilength; i>=0; i--) {
-			s_loc[i].setxy(i+c_x, c_y);
+		for (int i = ilength; i >= 0; i--) {
+			s_loc[i].setxy(i + c_x, c_y);
 		}
-        UserInput = direction;
+		UserInput = direction;
 	}
 	//===================== Show User Snake ==============================//
 	void ShowSnake() {
@@ -161,7 +159,7 @@ public:
 		SetConsoleTextAttribute(hConsole, 10);
 	}
 	//====================================================================//
-	
+
 	void ShowCompSnake() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
 		SetConsoleTextAttribute(hConsole, 9);
@@ -171,7 +169,7 @@ public:
 		}
 		SetConsoleTextAttribute(hConsole, 10);
 	}
-	
+
 	//========== For Left Direction ===========//
 	void DirLeft() {
 		for (int a = ilength; a>0; a--) {
@@ -228,97 +226,97 @@ public:
 	Clocation Comp_LowerHorizantalBoundary[TableHeight];
 	// ============================================= //
 	void LeftBoundary() {
-		for(int i=0; i<TableHeight; i++) {
-			leftVerticalBoundary[i].setxy(6,i+2);
-			Comp_leftVerticalBoundary[i].setxy(6,i+2);
+		for (int i = 0; i<TableHeight; i++) {
+			leftVerticalBoundary[i].setxy(6, i + 2);
+			Comp_leftVerticalBoundary[i].setxy(6, i + 2);
 		}
 	}
 	void RightBoundary() {
-		for(int i=0; i<TableHeight; i++) {
-			leftVerticalBoundary[i].setxy(TableWidth,i+2);
-			Comp_leftVerticalBoundary[i].setxy(TableWidth,i+2);
+		for (int i = 0; i<TableHeight; i++) {
+			leftVerticalBoundary[i].setxy(TableWidth, i + 2);
+			Comp_leftVerticalBoundary[i].setxy(TableWidth, i + 2);
 		}
 	}
 	void UpBoundary() {
-		for(int i=0; i<TableWidth; i++) {
-			leftVerticalBoundary[i].setxy(i+6,2);
-			Comp_leftVerticalBoundary[i].setxy(i+6,2);
+		for (int i = 0; i<TableWidth; i++) {
+			leftVerticalBoundary[i].setxy(i + 6, 2);
+			Comp_leftVerticalBoundary[i].setxy(i + 6, 2);
 		}
 	}
 	void DownBoundary() {
-		for(int i=0; i<TableWidth; i++) {
-			leftVerticalBoundary[i].setxy(i+6,TableHeight);
-			Comp_leftVerticalBoundary[i].setxy(i+6,TableHeight);
+		for (int i = 0; i<TableWidth; i++) {
+			leftVerticalBoundary[i].setxy(i + 6, TableHeight);
+			Comp_leftVerticalBoundary[i].setxy(i + 6, TableHeight);
 		}
 	}
 	void WelcomeScreen() {
 		HANDLE hConsole;
-        hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        system("cls");
-        SetConsoleTextAttribute(hConsole, 480);        //Yellow Color Code=480
-        gotoxy(23,0);
-        cout<<"   Indus University (FEST)   \n"; 
-        cout<<"\n";
-        SetConsoleTextAttribute(hConsole, 47);     //Green & White Color Code=47
-        gotoxy(19,2);
-        cout<<"      Snake Game with AI in OOP using C++      "; 
-        SetConsoleTextAttribute(hConsole, 8);             //Gray Color Code=8
-        for (int i=6; i<18; i++) {
-           gotoxy(43,i);
-           cout<<'\xB3';
-        }
-        gotoxy(28,3);
-        SetConsoleTextAttribute(hConsole, 27);             //Blue Color Code=27
-        cout<<"  Semester Project  ";
-        SetConsoleTextAttribute(hConsole, 12);           //Red Color Code=12
-        gotoxy(1,7);
-        cout<<"Submitted By: ";
-        SetConsoleTextAttribute(hConsole, 12);
-        gotoxy(46,8);
-        cout<<"Submitted To: ";
-        SetConsoleTextAttribute(hConsole, 11);          //Light Blue Color Code=11
-        gotoxy(48,10);
-        cout<<"Ms. Sumail Zehra";
-        SetConsoleTextAttribute(hConsole, 15);              //White Color Code=15
-        gotoxy(1,10);
-        cout<<"(Group Leader)";
-        SetConsoleTextAttribute(hConsole, 3);           //Dark Blue-Green Color Code=3
-        gotoxy(16,10);
-        cout<<"Aminullah Taj Muhammad";
-        SetConsoleTextAttribute(hConsole, 6);            //Dark Yellow Color Code=6
-        gotoxy(38,8);
-        SetConsoleTextAttribute(hConsole, 15);            //White Color Code=15
-        gotoxy(47,8);
-        SetConsoleTextAttribute(hConsole, 3);              //Dark Blue Color Code=3
-        gotoxy(16,12);
-        cout<<"Asad Ali Tagar";
-        SetConsoleTextAttribute(hConsole, 6);            //Dark Yellow Color Code=6
-        gotoxy(38,10);
-        SetConsoleTextAttribute(hConsole, 3);              //Dark Blue Color Code=3
-        gotoxy(16,14);
-        cout<<"Zeeshan Anwar";
-        SetConsoleTextAttribute(hConsole, 3);              //Dark Blue Color Code=3
-        gotoxy(16,16);
-        cout<<"Abdullah Shabbir";            
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		system("cls");
+		SetConsoleTextAttribute(hConsole, 480);        //Yellow Color Code=480
+		gotoxy(23, 0);
+		cout << "   Indus University (FEST)   \n";
+		cout << "\n";
+		SetConsoleTextAttribute(hConsole, 47);     //Green & White Color Code=47
+		gotoxy(19, 2);
+		cout << "      Snake Game with AI in OOP using C++      ";
+		SetConsoleTextAttribute(hConsole, 8);             //Gray Color Code=8
+		for (int i = 6; i<18; i++) {
+			gotoxy(43, i);
+			cout << '\xB3';
+		}
+		gotoxy(28, 3);
+		SetConsoleTextAttribute(hConsole, 27);             //Blue Color Code=27
+		cout << "  Semester Project  ";
+		SetConsoleTextAttribute(hConsole, 12);           //Red Color Code=12
+		gotoxy(1, 7);
+		cout << "Submitted By: ";
+		SetConsoleTextAttribute(hConsole, 12);
+		gotoxy(46, 8);
+		cout << "Submitted To: ";
+		SetConsoleTextAttribute(hConsole, 11);          //Light Blue Color Code=11
+		gotoxy(48, 10);
+		cout << "Ms. Sumail Zehra";
+		SetConsoleTextAttribute(hConsole, 15);              //White Color Code=15
+		gotoxy(1, 10);
+		cout << "(Group Leader)";
+		SetConsoleTextAttribute(hConsole, 3);           //Dark Blue-Green Color Code=3
+		gotoxy(16, 10);
+		cout << "Aminullah Taj Muhammad";
+		SetConsoleTextAttribute(hConsole, 6);            //Dark Yellow Color Code=6
+		gotoxy(38, 8);
+		SetConsoleTextAttribute(hConsole, 15);            //White Color Code=15
+		gotoxy(47, 8);
+		SetConsoleTextAttribute(hConsole, 3);              //Dark Blue Color Code=3
+		gotoxy(16, 12);
+		cout << "Asad Ali Tagar";
+		SetConsoleTextAttribute(hConsole, 6);            //Dark Yellow Color Code=6
+		gotoxy(38, 10);
+		SetConsoleTextAttribute(hConsole, 3);              //Dark Blue Color Code=3
+		gotoxy(16, 14);
+		cout << "Zeeshan Anwar";
+		SetConsoleTextAttribute(hConsole, 3);              //Dark Blue Color Code=3
+		gotoxy(16, 16);
+		cout << "Abdullah Shabbir";
 		SetConsoleTextAttribute(hConsole, 8);            //Dark Yellow Color Code=8
-        for (int i=0; i<79; i++) {
-            gotoxy(i,18);
-            cout<< char(196);
-    	}
-    	SetConsoleTextAttribute(hConsole, 8);            //Dark Yellow Color Code=8
-        for (int i=0; i<79; i++) {
-            gotoxy(i,6);
-            cout<<char(196);
-    	}
-    	SetConsoleTextAttribute(hConsole, 14);             //Golden Code=14
-		gotoxy(1,20);
-		cout<<"Press 1 for Play Single player Game: ";
+		for (int i = 0; i<79; i++) {
+			gotoxy(i, 18);
+			cout << char(196);
+		}
+		SetConsoleTextAttribute(hConsole, 8);            //Dark Yellow Color Code=8
+		for (int i = 0; i<79; i++) {
+			gotoxy(i, 6);
+			cout << char(196);
+		}
+		SetConsoleTextAttribute(hConsole, 14);             //Golden Code=14
+		gotoxy(1, 20);
+		cout << "Press 1 for Play Single player Game: ";
 		gotoxy(1, 21);
-    	cout<<"Press 2 for Play with computer snake Game: ";
-        gotoxy(1,23);
-        SetConsoleTextAttribute(hConsole, 7);             //Light White Color Code=7
-        cout<<"Press Any Number to Play: ";
-        //cin>>startgame;
+		cout << "Press 2 for Play with computer snake Game: ";
+		gotoxy(1, 23);
+		SetConsoleTextAttribute(hConsole, 7);             //Light White Color Code=7
+		cout << "Press Any Number to Play: ";
+		//cin>>startgame;
 	}
 	void SnakeBoundary() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
@@ -384,20 +382,20 @@ public:
 			gotoxy(TableSides + 5, 2);				// For upper left cornor Side
 			cout << "\xC9";						//
 		}
-		for(int i = 1; i <= TableHeight-1; i++) {
-			gotoxy(TableWidth, i+2);				// For right height
+		for (int i = 1; i <= TableHeight - 1; i++) {
+			gotoxy(TableWidth, i + 2);				// For right height
 			cout << "\xBA";
 		}
-		for(int i = 1; i <= TableHeight-1; i++) {
-			gotoxy(TableSides + 5, i+2);				// For left height
+		for (int i = 1; i <= TableHeight - 1; i++) {
+			gotoxy(TableSides + 5, i + 2);				// For left height
 			cout << "\xBA";
 		}
-		for(int i = 0; i <= TableSides; i++) {
-			gotoxy(TableSides + 5, TableHeight+2);				// For lower left cornor
+		for (int i = 0; i <= TableSides; i++) {
+			gotoxy(TableSides + 5, TableHeight + 2);				// For lower left cornor
 			cout << "\xC8";
 		}
-		for(int i = 0; i <= TableSides; i++) {
-			gotoxy(TableWidth, TableHeight+2);				// For lower right cornor
+		for (int i = 0; i <= TableSides; i++) {
+			gotoxy(TableWidth, TableHeight + 2);				// For lower right cornor
 			cout << "\xBC";
 		}
 		for (int i = 0; i <= TableSides; i++) {      // --
@@ -406,15 +404,15 @@ public:
 		}
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
 		SetConsoleTextAttribute(hConsole, 14);
-		gotoxy(70-48, 19-9);
-		cout<<"Game Over: \n";
-		gotoxy(70-49, 19-8);
-		cout<<"Your Score is: ";
+		gotoxy(70 - 48, 19 - 9);
+		cout << "Game Over: \n";
+		gotoxy(70 - 49, 19 - 8);
+		cout << "Your Score is: ";
 		SetConsoleTextAttribute(hConsole, 13);
-		cout<<iScore;
+		cout << iScore;
 		SetConsoleTextAttribute(hConsole, 14);
-		gotoxy(70-50, 19-7);
-		cout<<"Enter any to Again Play Game: "; cpress = getch();
+		gotoxy(70 - 50, 19 - 7);
+		cout << "Enter any to Again Play Game: "; cpress = _getch();
 		system("cls");
 		SetConsoleTextAttribute(hConsole, 15);
 	}
@@ -444,7 +442,7 @@ int main() {
 	//=====================================================//
 	do {
 		Choice = _getch();
-		if(Choice == '1') {
+		if (Choice == '1') {
 			system("cls");
 			//b.leftVerticalBoundary;
 			//b.LowerHorizantalBoundary;
@@ -476,12 +474,12 @@ int main() {
 					if (CurrentDirection != KiUp) { snake.DirDown(); CurrentDirection = KiDown; }
 					else { snake.DirUp(); CurrentDirection = KiUp; }
 				}
-				
+
 				snake.ShowSnake();
 				Sleep(100);								// For Delay Snake 85 Milli seconds
-				if(kbhit()) {
-					cDirection = getch();
-					if(cDirection == KiRight || cDirection == KiLeft || cDirection == KiUp || cDirection == KiDown) {
+				if (_kbhit()) {
+					cDirection = _getch();
+					if (cDirection == KiRight || cDirection == KiLeft || cDirection == KiUp || cDirection == KiDown) {
 						snake.UserInput = cDirection;
 					}
 				}
@@ -490,28 +488,28 @@ int main() {
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				if (snake.s_loc[0].y == TableHeight+2) {		// For Collision With Lower Boundary
+				if (snake.s_loc[0].y == TableHeight + 2) {		// For Collision With Lower Boundary
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				if(snake.s_loc[0].x == 5) { 					// For Collision With Left Boundary
+				if (snake.s_loc[0].x == 5) { 					// For Collision With Left Boundary
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				if(snake.s_loc[0].x == TableWidth) {			// For Collision With Right Boundary
+				if (snake.s_loc[0].x == TableWidth) {			// For Collision With Right Boundary
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				for(int i=1; i<ilength; i++) {					//collision condition for it self
-					if(snake.s_loc[0] == snake.s_loc[i]) { 
-						Sleep(1000); 
-						iHit = 1; 
-						break; /* for loop break */ 
+				for (int i = 1; i<ilength; i++) {					//collision condition for it self
+					if (snake.s_loc[0] == snake.s_loc[i]) {
+						Sleep(1000);
+						iHit = 1;
+						break; /* for loop break */
 					}
 				} // ------------ collision condition for it self ------ //
 				//-------------------------------------------------//
-				
-				if (iHit==1) { break; /* while loop break */ }
+
+				if (iHit == 1) { break; /* while loop break */ }
 				if (snake.s_loc[0] == food.eat) {
 					iScore += 5;
 					food.Food();
@@ -540,17 +538,21 @@ int main() {
 					iTime = 40;
 					iHideFood = 0;
 				}
-				for(int i=1; i<=ilength; i++) {
-					if(snake.s_loc[0] == snake.s_loc[i]) { food.Food(); /* for loop break */ }
+
+				// food is generate on the snake 
+				for (int i = 1; i < ilength; i++) {
+					if (food.eat == snake.s_loc[i]) { food.Food(); /* for loop break */ }
 				}
-				for(int i=1; i<=ilength; i++) {
-					if(snake.s_loc[0] == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
+				for (int i = 1; i < ilength; i++) {
+					if (food.eat == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
 				}
+				//----------------------------
 				bfood.PrintScore();
 			}
-		}
+		} // end if
+
 		//+++++++++++++++++++++++++++++++++++ Computer Vs User Snake Game +++++++++++++++++++++++++++++++//
-		else if(Choice == '2') {
+		else if (Choice == '2') {
 			system("cls");
 			b.SnakeBoundary();
 			snake.InitSnake();
@@ -580,109 +582,135 @@ int main() {
 					else { snake.DirUp(); CurrentDirection = KiUp; }
 				}
 				snake.ShowSnake();
-				//============================================================//
-				
-				//======== COMPUTER SNAKE DIRECTIONS AND MOVEMENT ============//
-				switch(Comp_snake.UserInput) {
-					case KiRight:
-						Comp_snake.DirRight();
-						break;
-					case KiLeft:
-						Comp_snake.DirLeft();
-						break;
-					case KiUp:
-						Comp_snake.DirUp();
-						break;
-					case KiDown:
-						Comp_snake.DirDown();
-						break; 			
-				}
-				
-				Comp_snake.ShowCompSnake();
-				//==========================================================//
-				Sleep(100);				// For Delay Snake 85 Milli seconds
 				
 				// same direction of snake until pressed any key from keyboard
-				if(kbhit()) {
-					cDirection = getch();
-					if(cDirection == KiRight || cDirection == KiLeft || cDirection == KiUp || cDirection == KiDown) {
+				if (_kbhit()) {
+					cDirection = _getch();
+					if (cDirection == KiRight || cDirection == KiLeft || cDirection == KiUp || cDirection == KiDown) {
 						snake.UserInput = cDirection;
 					}
 				}
-				
+				//============================================================//
+
+				//======== COMPUTER SNAKE DIRECTIONS AND MOVEMENT ============//
+				switch (Comp_snake.UserInput) {
+				case KiRight:
+					Comp_snake.DirRight();
+					break;
+				case KiLeft:
+					Comp_snake.DirLeft();
+					break;
+				case KiUp:
+					Comp_snake.DirUp();
+					break;
+				case KiDown:
+					Comp_snake.DirDown();
+					break;
+				}
+
+				Comp_snake.ShowCompSnake();
+				//==========================================================//
+				Sleep(100);				// For Delay Snake 85 Milli seconds
+
 				// 		!!!!!!!!!!!!!!!!!!!!   AI Of Snake Function   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		 //
 				Comp_snake.UserInput = DirectionOfComputer(Comp_snake.UserInput, Comp_snake, food);
 				// 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		 //
+
+				//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++===//
 				
-			//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++===//
+				
 				// ----------- Collision Condition User Snake --------------//
 				if (snake.s_loc[0].y == 2) {   			// For Collision With Upper Boundary 
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				if (snake.s_loc[0].y == TableHeight+2) {		// For Collision With Lower Boundary
+				if (snake.s_loc[0].y == TableHeight + 2) {		// For Collision With Lower Boundary
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				if(snake.s_loc[0].x == 5) { 					// For Collision With Left Boundary
+				if (snake.s_loc[0].x == 5) { 					// For Collision With Left Boundary
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				if(snake.s_loc[0].x == TableWidth) {			// For Collision With Right Boundary
+				if (snake.s_loc[0].x == TableWidth) {			// For Collision With Right Boundary
 					Sleep(1000);
 					iHit = 1;	break;
 				}
+
 				//--------------collision condition of computer snake------------------------//
 				//................... for hit the up boundary ..............//
 				//...
-								//............... for hit the left boundary ...............//
-//				if(Comp_snake.s_loc[0].x == TableHeight && Comp_snake.UserInput == KiLeft) {
-//					if(food.y > snake.s_loc[0].y ) {
-//						Comp_snake.UserInput = KiDown;
-//					}
-//					else {
-//						Comp_snake.UserInput = KiUp;
-//					}
-//				}
-				//---------------------------------------------------------------------------//
-				
-								//............... for hit the Right boundary ...............//
-				if(Comp_snake.s_loc[0].x == TableHeight && Comp_snake.UserInput == KiRight) {
+				//............... for hit the left boundary ...............//
+				if(Comp_snake.s_loc[0].x == TableWidth-1 && Comp_snake.UserInput == KiLeft) { 
 					if(food.y > snake.s_loc[0].y ) {
 						Comp_snake.UserInput = KiDown;
 					}
-					else {
+					if(food.y < snake.s_loc[0].y ) {
 						Comp_snake.UserInput = KiUp;
 					}
 				}
 				//---------------------------------------------------------------------------//
-				
-								//............... for hit the up boundary ...............//
-				if(Comp_snake.s_loc[0].y == TableWidth && Comp_snake.UserInput == KiUp) {
-					if(food.x > snake.s_loc[0].x ) {
-						Comp_snake.UserInput = KiRight;
+
+				//............... for hit the Right boundary ...............//
+				if (Comp_snake.s_loc[0].x == 6 && Comp_snake.UserInput == KiRight) {
+					if (food.y > snake.s_loc[0].y) {
+						Comp_snake.UserInput = KiDown;
 					}
-					else {
+					if (food.y < snake.s_loc[0].y) {
+						Comp_snake.UserInput = KiUp;
+					}
+				}
+				//---------------------------------------------------------------------------//
+
+				//............... for hit the up boundary .................//
+				if (Comp_snake.s_loc[0].y == 3 && Comp_snake.UserInput == KiUp) {
+					if (food.x > snake.s_loc[0].x) {
+						Comp_snake.UserInput = KiRight;
+					} 
+					if (food.x < snake.s_loc[0].x) {
 						Comp_snake.UserInput = KiLeft;
 					}
 				}
 				//---------------------------------------------------------------------------//
-				
-								//............... for hit the Down boundary ...............//
-				if(Comp_snake.s_loc[0].y == TableWidth && Comp_snake.UserInput == KiDown) {
-					if(food.x > snake.s_loc[0].x ) {
+
+				//............... for hit the Down boundary ...............//
+				if (Comp_snake.s_loc[0].y == 20 && Comp_snake.UserInput == KiDown) {
+					if (food.x > snake.s_loc[0].x) {
 						Comp_snake.UserInput = KiRight;
 					}
-					else {
+					if (food.x < snake.s_loc[0].x) {
 						Comp_snake.UserInput = KiLeft;
 					}
 				}
 				//---------------------------------------------------------------------------//
+
+
+		// ----- ----- ---- ----- When snake and food in same place but directions is changed ------ ------- ------//
+				// ----------------------- for left and right side ----------------------//
+				// for right side
+				if (Comp_snake.s_loc[0].y == food.y) {
+				}
+
+				// for left side 
+				if (Comp_snake.s_loc[0].y == food.y && Comp_snake.UserInput == KiLeft) {
 				
+				}
+			
+		// ------------------------------------------------------------------------------------------------------ //
+
+
 				// ------------ collision condition for it self ------ //
-				for(int i=1; i<ilength; i++) {
-					if(snake.s_loc[0] == snake.s_loc[i]) { Sleep(1000); iHit = 1; break; /* for loop break */ }
-				} 
+				for (int i = 1; i<ilength; i++) {
+					if (snake.s_loc[0] == snake.s_loc[i]) { 
+						Sleep(1000); 
+						iHit = 1; 
+						break; 
+						/* for loop break */ 
+					}
+				}
+				
+				
+				
 				//-------------------------------------------------//
 				if (Comp_snake.s_loc[0] == food.eat) {
 					iScore += 5;
@@ -718,21 +746,45 @@ int main() {
 					iHideFood = 0;
 				}
 				//------------- if food generate on snake -----------------//
-				for(int i=1; i<=ilength; i++) {
-					if(snake.s_loc[0] == snake.s_loc[i]) { food.Food(); /* for loop break */ }
+				for (int i = 1; i < ilength; i++) {
+					if (food.eat == snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
+					if (food.eat == Comp_snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
 				}
-				for(int i=1; i<=ilength; i++) {
-					if(snake.s_loc[0] == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
+				for (int i = 1; i <= ilength; i++) {
+					if (snake.s_loc[0] == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
+					if (snake.s_loc[0] == Comp_snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
 				}
 				//--------------------------------------------------------//
+
+				//--------------- if food generates on computer snake --------------------//
+				for (int i = 0; i < ilength; i++) {
+					if (Comp_snake.s_loc[0] == snake.s_loc[i]) { food.Food(); break; /* for loop break */ }
+				}
+				//------------------------------------------------------------------------//
+				//================== if Computer snake hit itself =======================//
+				for (int i = 1; i<=ilength; i++) {
+					if (Comp_snake.s_loc[0] == Comp_snake.s_loc[i]) {
+						Sleep(1000);
+						iHit = 1;
+						break;
+						/* for loop break */
+					}
+				}
+				//==============================================================//
+				if (iHit == 1) {
+					system("cls");
+					b.ShowGameOverScreen();
+					isgame = false;
+				}
+
 			}
-		}
+		} // end else if
 		if (iHit == 1) {
 			system("cls");
 			b.ShowGameOverScreen();
-			isgame == false;
+			isgame = false;
 		}
-	} while(Choice != 6); // end of first while loop (like True/False}
+	} while (Choice != 6); // end of first while loop (like True/False}
 } // end of main function
 
 // AI of Computer Snake  //
@@ -740,122 +792,122 @@ char DirectionOfComputer(char CompKey, CSnake Comp_snake, CFood food) {
 	int dif_x = food.x - Comp_snake.s_loc[0].x;
 	int dif_y = food.y - Comp_snake.s_loc[0].y;
 	// DIRECTION FOR FORWARD FOOD //
-//-----------------------------------------------------------------------------//	
+	//-----------------------------------------------------------------------------//	
 	// direction for right & up //
-	if(Comp_snake.UserInput == KiRight && dif_x>0 && dif_y<0) {
+	if (Comp_snake.UserInput == KiRight && dif_x>0 && dif_y<0) {
 		CompKey = KiRight;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y<0 ) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y<0) {
 		CompKey = KiUp;
 	}
 	// direction for right & down //
-	if(CompKey == KiRight && dif_x>0 && dif_y>0) {
+	if (CompKey == KiRight && dif_x>0 && dif_y>0) {
 		CompKey = KiRight;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y>0) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y>0) {
 		CompKey = KiDown;
 	}
 	// direction for left & up //
-	if(CompKey == KiLeft && dif_x<0 && dif_y<0 ) {
+	if (CompKey == KiLeft && dif_x<0 && dif_y<0) {
 		CompKey = KiLeft;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y<0) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y<0) {
 		CompKey = KiUp;
 	}
 	// direction for left & down //
-	if(CompKey == KiLeft && dif_x<0 && dif_y>0) {
+	if (CompKey == KiLeft && dif_x<0 && dif_y>0) {
 		CompKey = KiLeft;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y>0) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y>0) {
 		CompKey = KiDown;
 	}
 	// direction for up & right //
-	if(CompKey == KiUp && dif_x>0 && dif_y<0) {
+	if (CompKey == KiUp && dif_x>0 && dif_y<0) {
 		CompKey = KiUp;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x>0) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x>0) {
 		CompKey = KiRight;
 	}
 	// direction for up & left //
-	if(CompKey == KiUp && dif_x<0 && dif_y<0) {
+	if (CompKey == KiUp && dif_x<0 && dif_y<0) {
 		CompKey = KiUp;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x<0) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x<0) {
 		CompKey = KiLeft;
 	}
 	// direction for down & right //
-	if(CompKey == KiDown && dif_x>0 && dif_y<0) {
+	if (CompKey == KiDown && dif_x>0 && dif_y<0) {
 		CompKey = KiDown;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x>0) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x>0) {
 		CompKey = KiRight;
 	}
 	// direction for down & left //
-	if(CompKey == KiDown && dif_x<0 && dif_y>0) {
+	if (CompKey == KiDown && dif_x<0 && dif_y>0) {
 		CompKey = KiDown;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x<0) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x<0) {
 		CompKey = KiLeft;
 	}
-//--------------------------------------------------------------------------------//
+	//--------------------------------------------------------------------------------//
 	// DIRECTION FOR BACKWARD //
-//--------------------------------------------------------------------------------//
+	//--------------------------------------------------------------------------------//
 	// direction for right & up //
-	if(Comp_snake.UserInput == KiRight && dif_x<0 && dif_y<0) {
+	if (Comp_snake.UserInput == KiRight && dif_x<0 && dif_y<0) {
 		CompKey = KiUp;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x<0 ) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x<0) {
 		CompKey = KiLeft;
 	}
 	// direction for right & down //
-	if(CompKey == KiRight && dif_x<0 && dif_y>0) {
+	if (CompKey == KiRight && dif_x<0 && dif_y>0) {
 		CompKey = KiDown;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x<0) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x<0) {
 		CompKey = KiLeft;
 	}
 	// direction for left & up //
-	if(CompKey == KiLeft && dif_x>0 && dif_y<0 ) {
+	if (CompKey == KiLeft && dif_x>0 && dif_y<0) {
 		CompKey = KiUp;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x>0) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiUp && dif_x>0) {
 		CompKey = KiRight;
 	}
 	// direction for left & down //
-	if(CompKey == KiLeft && dif_x>0 && dif_y>0) {
+	if (CompKey == KiLeft && dif_x>0 && dif_y>0) {
 		CompKey = KiDown;
 	}
-	if(Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x>0) {
+	if (Comp_snake.s_loc[0].y == food.y && CompKey == KiDown && dif_x>0) {
 		CompKey = KiRight;
 	}
 	// direction for up & right //
-	if(CompKey == KiUp && dif_x>0 && dif_y>0) {
+	if (CompKey == KiUp && dif_x>0 && dif_y>0) {
 		CompKey = KiRight;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y>0) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y>0) {
 		CompKey = KiDown;
 	}
 	// direction for up & left //
-	if(CompKey == KiUp && dif_x<0 && dif_y>0) {
+	if (CompKey == KiUp && dif_x<0 && dif_y>0) {
 		CompKey = KiLeft;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y>0) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y>0) {
 		CompKey = KiDown;
 	}
 	// direction for down & right //
-	if(CompKey == KiDown && dif_x>0 && dif_y<0) {
+	if (CompKey == KiDown && dif_x>0 && dif_y<0) {
 		CompKey = KiRight;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y<0) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiRight && dif_y<0) {
 		CompKey = KiUp;
 	}
 	// direction for down & left //
-	if(CompKey == KiDown && dif_x<0 && dif_y<0) {
+	if (CompKey == KiDown && dif_x<0 && dif_y<0) {
 		CompKey = KiLeft;
 	}
-	if(Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y<0) {
+	if (Comp_snake.s_loc[0].x == food.x && CompKey == KiLeft && dif_y<0) {
 		CompKey = KiUp;
 	}
-//--------------------------------------------------------------------------------//
+	//--------------------------------------------------------------------------------//
 	return CompKey;
-} 
+}
