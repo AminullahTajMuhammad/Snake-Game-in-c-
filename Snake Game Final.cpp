@@ -868,6 +868,9 @@ int main() {
 
 			}
 		} // end else if
+		else if(Choice == '3') {
+			
+		}
 	} while (Choice != 6); // end of first while loop (like True/False}
 } // end of main function
 
