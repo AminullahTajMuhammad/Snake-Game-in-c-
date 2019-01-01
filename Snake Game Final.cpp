@@ -33,9 +33,10 @@ const int TableSides = 0;     // For table's four sides
 int foodx;						//horizantal food
 int foody;						//vertical food
 int iScore = 0;
-int iScoreOfCompSnake = 0;
+int iCompScore = 0;
 int CurrentDirection = KiRight;
 int ilength = 5;
+int iComLenght = 5;
 int iTime = 40;
 bool isgame = true;
 //=============================================================//
@@ -86,8 +87,8 @@ public:
 		SetConsoleTextAttribute(hConsole, 14);
 		time_t t;
 		srand(time(&t));
-		x = (rand() % 50) + 7;								//RANDOMLY GENERATE FOOD OF X AXIS
-		y = (rand() % 10) + 3;								//RANDOMLY GENERATE FOOD OF Y AXIS
+		x = (rand() % 50) + 9;					//7			//RANDOMLY GENERATE FOOD OF X AXIS
+		y = (rand() % 10) + 5;					//3			//RANDOMLY GENERATE FOOD OF Y AXIS
 		gotoxy(x, y);
 		cout << "\x01";
 		eat.setxy(x, y);
@@ -136,7 +137,7 @@ public:
 		gotoxy(45, 22);
 		cout << "Computer Score is: ";
 		SetConsoleTextAttribute(hConsole, 12);
-		cout<< iScoreOfCompSnake;
+		cout<< iCompScore;
 	}
 	void ShowTime() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
@@ -148,7 +149,6 @@ public:
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
 		SetConsoleTextAttribute(hConsole, 12);
 		gotoxy(30, 22);
-		Sleep(1000);
 		cout << "Time: "<<min<<":"<<sec;
 	}
 	
@@ -443,6 +443,62 @@ public:
 		system("cls");
 		SetConsoleTextAttribute(hConsole, 15);
 	}
+	
+	void ShowGameOverScreenOfBattle() {
+		char cpress;
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
+		SetConsoleTextAttribute(hConsole, 11);
+		for (int i = 6; i<TableWidth; i++) {       // --
+			gotoxy(i, 2);                	    // For upper  horizantal Boundary
+			cout << "\xCD";               	    // --
+		}
+		for (int i = 6; i<TableWidth; i++) {       // --
+			gotoxy(i, 21);                       // For lower horizantal Boundary
+			cout << "\xCD";                       // --
+		}
+		for (int i = 0; i <= TableSides; i++) {      // --
+			gotoxy(TableSides + 5, 2);				// For upper left cornor Side
+			cout << "\xC9";						//
+		}
+		for (int i = 1; i <= TableHeight - 1; i++) {
+			gotoxy(TableWidth, i + 2);				// For right height
+			cout << "\xBA";
+		}
+		for (int i = 1; i <= TableHeight - 1; i++) {
+			gotoxy(TableSides + 5, i + 2);				// For left height
+			cout << "\xBA";
+		}
+		for (int i = 0; i <= TableSides; i++) {
+			gotoxy(TableSides + 5, TableHeight + 2);				// For lower left cornor
+			cout << "\xC8";
+		}
+		for (int i = 0; i <= TableSides; i++) {
+			gotoxy(TableWidth, TableHeight + 2);				// For lower right cornor
+			cout << "\xBC";
+		}
+		for (int i = 0; i <= TableSides; i++) {      // --
+			gotoxy(TableWidth, 2);               // For upper right cornor
+			cout << "\xBB";                       // --
+		}
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
+		SetConsoleTextAttribute(hConsole, 14);
+		gotoxy(70 - 48, 19 - 9);
+		cout << "Game Over: \n";
+		gotoxy(70 - 49, 19 - 8);
+		
+		if(iScore < iCompScore) {								//for calculating score of one of them
+			cout << "Computer win by: "<<iCompScore-iScore<<"Score from User "<<endl;
+		} else {
+			cout << "You Win: ";
+			SetConsoleTextAttribute(hConsole, 13);
+			cout << iScore;
+		}
+		SetConsoleTextAttribute(hConsole, 14);
+		gotoxy(70 - 50, 19 - 7);
+		cout << "Enter any to Again Play Game: "; cpress = _getch();
+		system("cls");
+		SetConsoleTextAttribute(hConsole, 15);
+	}
 
 };
 char DirectionOfComputer(char comp, CSnake, CFood);
@@ -467,7 +523,7 @@ int main() {
 	//========= Initialize Snake Components ================//
 	b.WelcomeScreen();
 	//=====================================================//
-	int min = 1, sec = 60; 		// show time for battle
+	int min = 1, sec = 59, checkForTimeUp = 0; 		// show time for battle
 	do {
 		Choice = _getch();
 		if (Choice == '1') {
@@ -537,7 +593,10 @@ int main() {
 				} // ------------ collision condition for it self ------ //
 				//-------------------------------------------------//
 
-				if (iHit == 1) { break; /* while loop break */ }
+				if (iHit == 1) { 
+					break; 		/* while loop break */ 
+				}
+				
 				if (snake.s_loc[0] == food.eat) {
 					iScore += 5;
 					food.Food();
@@ -588,6 +647,7 @@ int main() {
 			food.Food();
 			bfood.PrintScore();
 			bfood.printScoreOfComputerSnake();
+			bfood.showTimeForBattle(min, sec);
 			Comp_snake.Comp_InitSnake(5, 40, 15, 75);
 			Comp_snake.ShowCompSnake();
 			_getch();
@@ -727,7 +787,7 @@ int main() {
 		// ------------------------------------------------------------------------------------------------------ //
 
 
-				// ------------ collision condition for it self ------ //
+				// ------------ collision condition for it self of user snake ------ //
 				for (int i = 1; i<ilength; i++) {
 					if (snake.s_loc[0] == snake.s_loc[i]) { 
 						Sleep(1000); 
@@ -737,51 +797,39 @@ int main() {
 					}
 				}
 				
-				
-				
-				//-------------------------- Score for user Snake --------------------------------//
+				//-------------------------- Score for Comp Snake --------------------------------//
 				if (Comp_snake.s_loc[0] == food.eat) {
-					iScore += 5;
+					iCompScore += 5;
+					bfood.printScoreOfComputerSnake();
 					food.Food();
-					ilength++;
+					iComLenght++;
 				}
+				//-------------------------- Score for user Snake --------------------------------//
 				if (snake.s_loc[0] == food.eat) {
 					iScore += 5;
 					food.Food();
-					iCount++;
+					bfood.PrintScore();
 					ilength++;
-					if (iCount == 5) {
-						bfood.BigFood();				//show BigFood
-						iCount = 0;
-						iHideFood = 1;
-					}
-				}
-				//-------------------------- for big food -------------------------------//
-				if (iHideFood == 1) {
-					bfood.ShowTimeForBigFood(iTime);
-					iTime--;
-					if (iTime == 0) {			// if time is end
-						bfood.Tail();			// hide Big Food
-						bfood.HideTime();		// hide Time
-						iTime = 40;
-						iHideFood = 0;
-					}
-				}		//BIG FOOD CONDITION
-				if (snake.s_loc[0] == bfood.bigEat) {
-					int randumScore = (rand() % 40);
-					iScore = iScore + randumScore;
-					bfood.HideTime();
-					iTime = 40;
-					iHideFood = 0;
 				}
 				// --------------------------------------------------------------------//
 				// ----------------------- Time for Battle ------------------------------ //
-				if(min > 0 && sec >= 0) {
+				if(min >= 0 && sec >= 0) 
+				{
 					sec--;
 					bfood.showTimeForBattle(min, sec);
 					if(sec == 0) {
 						min--;
+						sec = 60;
+						checkForTimeUp++;
+						
+						if(checkForTimeUp == 2) {
+							Sleep(1000);
+							system("cls");
+							b.ShowGameOverScreenOfBattle();
+							iHit = 1;					// for break loop variable
+						}	
 					}
+					
 				}
 				
 				// ---------------------------------------------------------------------- //
@@ -811,20 +859,15 @@ int main() {
 						/* for loop break */
 					}
 				}
-				//==============================================================//
+				//=======================================================//
 				if (iHit == 1) {
 					system("cls");
-					b.ShowGameOverScreen();
+					b.ShowGameOverScreenOfBattle();
 					isgame = false;
 				}
 
 			}
 		} // end else if
-		if (iHit == 1) {
-			system("cls");
-			b.ShowGameOverScreen();
-			isgame = false;
-		}
 	} while (Choice != 6); // end of first while loop (like True/False}
 } // end of main function
 
