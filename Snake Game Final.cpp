@@ -6,6 +6,15 @@ Testing By: Asad Tagar
 Bug Fixed by: Aminullah Taj Muhammad
 */
 
+/*
+	1) Insert Time Duration between battle
+	2) Make Same Palace Logic
+	3) Controlling Length of Both Snakes
+	4) Handle Scroing
+	5) Learn About Filing and using in it
+	6) Make Again and Again Run Logic 
+*/
+
 #include<iostream>
 #include<conio.h>
 #include<windows.h>
@@ -24,6 +33,7 @@ const int TableSides = 0;     // For table's four sides
 int foodx;						//horizantal food
 int foody;						//vertical food
 int iScore = 0;
+int iScoreOfCompSnake = 0;
 int CurrentDirection = KiRight;
 int ilength = 5;
 int iTime = 40;
@@ -119,12 +129,29 @@ public:
 		SetConsoleTextAttribute(hConsole, 12);
 		cout << iScore;
 	}
+	
+	void printScoreOfComputerSnake() {
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
+		SetConsoleTextAttribute(hConsole, 15);
+		gotoxy(45, 22);
+		cout << "Computer Score is: ";
+		SetConsoleTextAttribute(hConsole, 12);
+		cout<< iScoreOfCompSnake;
+	}
 	void ShowTime() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
 		SetConsoleTextAttribute(hConsole, 15);
 		gotoxy(50, 22);
 		cout << "Time: ";
 	}
+	void showTimeForBattle(int min, int sec) {
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
+		SetConsoleTextAttribute(hConsole, 12);
+		gotoxy(30, 22);
+		Sleep(1000);
+		cout << "Time: "<<min<<":"<<sec;
+	}
+	
 };
 class CSnake : public Clocation {
 public:
@@ -440,6 +467,7 @@ int main() {
 	//========= Initialize Snake Components ================//
 	b.WelcomeScreen();
 	//=====================================================//
+	int min = 1, sec = 60; 		// show time for battle
 	do {
 		Choice = _getch();
 		if (Choice == '1') {
@@ -559,7 +587,7 @@ int main() {
 			snake.ShowSnake();
 			food.Food();
 			bfood.PrintScore();
-			bfood.ShowTime();
+			bfood.printScoreOfComputerSnake();
 			Comp_snake.Comp_InitSnake(5, 40, 15, 75);
 			Comp_snake.ShowCompSnake();
 			_getch();
@@ -711,7 +739,7 @@ int main() {
 				
 				
 				
-				//-------------------------------------------------//
+				//-------------------------- Score for user Snake --------------------------------//
 				if (Comp_snake.s_loc[0] == food.eat) {
 					iScore += 5;
 					food.Food();
@@ -728,6 +756,7 @@ int main() {
 						iHideFood = 1;
 					}
 				}
+				//-------------------------- for big food -------------------------------//
 				if (iHideFood == 1) {
 					bfood.ShowTimeForBigFood(iTime);
 					iTime--;
@@ -745,6 +774,18 @@ int main() {
 					iTime = 40;
 					iHideFood = 0;
 				}
+				// --------------------------------------------------------------------//
+				// ----------------------- Time for Battle ------------------------------ //
+				if(min > 0 && sec >= 0) {
+					sec--;
+					bfood.showTimeForBattle(min, sec);
+					if(sec == 0) {
+						min--;
+					}
+				}
+				
+				// ---------------------------------------------------------------------- //
+				
 				//------------- if food generate on snake -----------------//
 				for (int i = 1; i < ilength; i++) {
 					if (food.eat == snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
@@ -752,7 +793,7 @@ int main() {
 				}
 				for (int i = 1; i <= ilength; i++) {
 					if (snake.s_loc[0] == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
-					if (snake.s_loc[0] == Comp_snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
+					if (snake.s_loc[0] == Comp_snake.s_loc[i]) { bfood.Tail(); /* for loop break */ }
 				}
 				//--------------------------------------------------------//
 
