@@ -102,8 +102,8 @@ public:
 		SetConsoleTextAttribute(hConsole, 10);
 		time_t t;
 		srand(time(&t));
-		x = (rand() % 50) + 9;								//RANDOMLY GENERATE FOOD OF X AXIS
-		y = (rand() % 10) + 6;								//RANDOMLY GENERATE FOOD OF Y AXIS
+		x = (rand() % 60) + 9;			//9					//RANDOMLY GENERATE FOOD OF X AXIS
+		y = (rand() % 10) + 3;			//6					//RANDOMLY GENERATE FOOD OF Y AXIS
 		gotoxy(x, y);
 		cout << char(254);
 		bigEat.setxy(x, y);
@@ -150,6 +150,10 @@ public:
 		SetConsoleTextAttribute(hConsole, 12);
 		gotoxy(30, 22);
 		cout << "Time: "<<min<<":"<<sec;
+		if(sec<10) {
+			gotoxy(39,22);
+			cout<<" ";
+		}
 	}
 	
 };
@@ -523,7 +527,7 @@ int main() {
 	//========= Initialize Snake Components ================//
 	b.WelcomeScreen();
 	//=====================================================//
-	int min = 1, sec = 59, checkForTimeUp = 0; 		// show time for battle
+	int min = 1, sec = 59, tenSecond = 0, checkForTimeUp = 0; 		// show time for battle
 	do {
 		Choice = _getch();
 		if (Choice == '1') {
@@ -570,7 +574,7 @@ int main() {
 				// ----------- Collision Condition -------------- //
 				if (snake.s_loc[0].y == 2) {   			// For Collision With Upper Boundary 
 					Sleep(1000);
-					iHit = 1;	break;
+					iHit = 1;  break;
 				}
 				if (snake.s_loc[0].y == TableHeight + 2) {		// For Collision With Lower Boundary
 					Sleep(1000);
@@ -592,11 +596,6 @@ int main() {
 					}
 				} // ------------ collision condition for it self ------ //
 				//-------------------------------------------------//
-
-				if (iHit == 1) { 
-					break; 		/* while loop break */ 
-				}
-				
 				if (snake.s_loc[0] == food.eat) {
 					iScore += 5;
 					food.Food();
@@ -634,7 +633,11 @@ int main() {
 					if (food.eat == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
 				}
 				//----------------------------
-				bfood.PrintScore();
+				
+			}
+			if(iHit == 1) {
+				system("cls");
+				b.ShowGameOverScreen();
 			}
 		} // end if
 
@@ -698,7 +701,26 @@ int main() {
 
 				Comp_snake.ShowCompSnake();
 				//==========================================================//
-				Sleep(100);				// For Delay Snake 85 Milli seconds
+				Sleep(90);				// For Delay Snake 85 Milli seconds
+				
+				// --------------- Time for battle --------------------- //
+				tenSecond++;
+				if(tenSecond == 10) {
+					tenSecond = 0;
+					sec--;
+					if(sec == 0) {
+						min--;
+						sec = 60;
+						checkForTimeUp++;	
+					}
+					if(checkForTimeUp == 2) {
+						Sleep(1000);
+						iHit = 1;					// for break loop variable
+						break;
+					}
+				}
+				bfood.showTimeForBattle(min, sec);
+				// ----------------------------------------------------- //
 
 				// 		!!!!!!!!!!!!!!!!!!!!   AI Of Snake Function   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		 //
 				Comp_snake.UserInput = DirectionOfComputer(Comp_snake.UserInput, Comp_snake, food);
@@ -788,7 +810,7 @@ int main() {
 
 
 				// ------------ collision condition for it self of user snake ------ //
-				for (int i = 1; i<ilength; i++) {
+				for (int i = 1; i<=ilength; i++) {
 					if (snake.s_loc[0] == snake.s_loc[i]) { 
 						Sleep(1000); 
 						iHit = 1; 
@@ -796,7 +818,9 @@ int main() {
 						/* for loop break */ 
 					}
 				}
-				
+				if(iHit == 1) {
+					break;    // break while loop
+				}
 				//-------------------------- Score for Comp Snake --------------------------------//
 				if (Comp_snake.s_loc[0] == food.eat) {
 					iCompScore += 5;
@@ -812,36 +836,11 @@ int main() {
 					ilength++;
 				}
 				// --------------------------------------------------------------------//
-				// ----------------------- Time for Battle ------------------------------ //
-				if(min >= 0 && sec >= 0) 
-				{
-					sec--;
-					bfood.showTimeForBattle(min, sec);
-					if(sec == 0) {
-						min--;
-						sec = 60;
-						checkForTimeUp++;
-						
-						if(checkForTimeUp == 2) {
-							Sleep(1000);
-							system("cls");
-							b.ShowGameOverScreenOfBattle();
-							iHit = 1;					// for break loop variable
-						}	
-					}
-					
-				}
-				
-				// ---------------------------------------------------------------------- //
 				
 				//------------- if food generate on snake -----------------//
 				for (int i = 1; i < ilength; i++) {
 					if (food.eat == snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
 					if (food.eat == Comp_snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
-				}
-				for (int i = 1; i <= ilength; i++) {
-					if (snake.s_loc[0] == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
-					if (snake.s_loc[0] == Comp_snake.s_loc[i]) { bfood.Tail(); /* for loop break */ }
 				}
 				//--------------------------------------------------------//
 
@@ -860,12 +859,11 @@ int main() {
 					}
 				}
 				//=======================================================//
-				if (iHit == 1) {
-					system("cls");
-					b.ShowGameOverScreenOfBattle();
-					isgame = false;
-				}
 
+			}
+			if (iHit == 1) {
+				system("cls");
+				b.ShowGameOverScreenOfBattle();
 			}
 		} // end else if
 		else if(Choice == '3') {
