@@ -35,7 +35,7 @@ int foody;						//vertical food
 int iScore = 0;
 int iCompScore = 0;
 int CurrentDirection = KiRight;
-int ilength = 5;
+//int ilength = 5;
 int iComLenght = 5;
 int iTime = 40;
 bool isgame = true;
@@ -126,8 +126,8 @@ public:
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
 		SetConsoleTextAttribute(hConsole, 15);
 		gotoxy(7, 22);
-		cout << "Score is: ";
-		SetConsoleTextAttribute(hConsole, 12);
+		cout << "User Score is: ";
+		SetConsoleTextAttribute(hConsole, 13);
 		cout << iScore;
 	}
 	
@@ -136,7 +136,7 @@ public:
 		SetConsoleTextAttribute(hConsole, 15);
 		gotoxy(45, 22);
 		cout << "Computer Score is: ";
-		SetConsoleTextAttribute(hConsole, 12);
+		SetConsoleTextAttribute(hConsole, 10);
 		cout<< iCompScore;
 	}
 	void ShowTime() {
@@ -147,9 +147,11 @@ public:
 	}
 	void showTimeForBattle(int min, int sec) {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
-		SetConsoleTextAttribute(hConsole, 12);
+		SetConsoleTextAttribute(hConsole, 15);
 		gotoxy(30, 22);
-		cout << "Time: "<<min<<":"<<sec;
+		cout << "Time: ";
+		SetConsoleTextAttribute(hConsole, 12);
+		cout<<min<<":"<<sec;
 		if(sec<10) {
 			gotoxy(39,22);
 			cout<<" ";
@@ -159,8 +161,10 @@ public:
 };
 class CSnake : public Clocation {
 public:
+	int ilength = 5;
 	Clocation s_loc[100];
-	char UserInput;
+	char UserInput = KiRight;
+	
 	//========== Initial lenght of user snake ==========//
 	void InitSnake() {
 		s_loc[0].setxy(20, 7);
@@ -193,7 +197,7 @@ public:
 
 	void ShowCompSnake() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
-		SetConsoleTextAttribute(hConsole, 9);
+		SetConsoleTextAttribute(hConsole, 10);
 		for (int i = 0; i<ilength; i++) {
 			s_loc[i].ShowFace(i);
 			s_loc[ilength].Tail();
@@ -339,18 +343,34 @@ public:
 			gotoxy(i, 6);
 			cout << char(196);
 		}
-		SetConsoleTextAttribute(hConsole, 14);             //Golden Code=14
-		gotoxy(1, 20);
-		cout << "Press 1 for Play Single player Game: ";
-		gotoxy(1, 21);
-		cout << "Press 2 for Play with computer snake Game: ";
-		gotoxy(1, 23);
+		SetConsoleTextAttribute(hConsole, 13);             //Pink Color Code=13
+		gotoxy(31,19);
+        cout<<"<Game Options>";
+        SetConsoleTextAttribute(hConsole, 15);             //White Color Code=15
+        gotoxy(2,21);
+    	cout<<"1: ";
+        SetConsoleTextAttribute(hConsole, 2);             //blue-Green Color Code=3
+        gotoxy(5,21);
+	    cout<<"Play New Single Player Game";
+        SetConsoleTextAttribute(hConsole, 15);             //White Color Code=15
+        gotoxy(2,22);
+        cout<<"2: ";
+        SetConsoleTextAttribute(hConsole, 2);             //blue-Green Color Code=3
+        gotoxy(5,22);
+        cout<<"Play New Player VS Computer Game";
+		gotoxy(1, 24);
 		SetConsoleTextAttribute(hConsole, 7);             //Light White Color Code=7
 		cout << "Press Any Number to Play: ";
 		//cin>>startgame;
 	}
 	void SnakeBoundary() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
+		
+		//---------- For Upper text on Board ------------------- //
+		SetConsoleTextAttribute(hConsole, 480);
+		gotoxy(6,1);
+		cout<<"                    Snake game using OOP in C++                 ";
+		//--------------------------------------------------------///
 		SetConsoleTextAttribute(hConsole, 11);
 		for (int i = 0; i <= TableSides; i++) {      // --
 			gotoxy(TableSides + 5, 2);				// For upper Initial Side
@@ -442,10 +462,9 @@ public:
 		SetConsoleTextAttribute(hConsole, 13);
 		cout << iScore;
 		SetConsoleTextAttribute(hConsole, 14);
-		gotoxy(70 - 50, 19 - 7);
-		cout << "Enter any to Again Play Game: "; cpress = _getch();
-		system("cls");
-		SetConsoleTextAttribute(hConsole, 15);
+		gotoxy(5, 22);
+		SetConsoleTextAttribute(hConsole, 480);
+		cout<<"Enter any key to continue: ";		
 	}
 	
 	void ShowGameOverScreenOfBattle() {
@@ -485,29 +504,23 @@ public:
 			cout << "\xBB";                       // --
 		}
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
-		SetConsoleTextAttribute(hConsole, 14);
-		gotoxy(70 - 48, 19 - 9);
+		SetConsoleTextAttribute(hConsole, 10);
+		gotoxy(31, 10);
 		cout << "Game Over: \n";
-		gotoxy(70 - 49, 19 - 8);
-		
+		gotoxy(30, 12);
+		SetConsoleTextAttribute(hConsole, 12);
 		if(iScore < iCompScore) {								//for calculating score of one of them
-			cout << "Computer win by: "<<iCompScore-iScore<<"Score from User "<<endl;
+			cout << "Computer win! ";
+		} else if(iScore == iCompScore) {
+			cout<<"Match is Draw";
 		} else {
 			cout << "You Win: ";
-			SetConsoleTextAttribute(hConsole, 13);
-			cout << iScore;
 		}
-		SetConsoleTextAttribute(hConsole, 14);
-		gotoxy(70 - 50, 19 - 7);
-		cout << "Enter any to Again Play Game: "; cpress = _getch();
-		system("cls");
-		SetConsoleTextAttribute(hConsole, 15);
 	}
 
 };
 char DirectionOfComputer(char comp, CSnake, CFood);
 int main() {
-
 	//============= Some Important Variables ===============//
 	int iCount = 0;
 	int iHit = 0;
@@ -529,6 +542,7 @@ int main() {
 	//=====================================================//
 	int min = 1, sec = 59, tenSecond = 0, checkForTimeUp = 0; 		// show time for battle
 	do {
+	RESTARTED_SNAKE_GAME:
 		Choice = _getch();
 		if (Choice == '1') {
 			system("cls");
@@ -564,7 +578,7 @@ int main() {
 				}
 
 				snake.ShowSnake();
-				Sleep(100);								// For Delay Snake 85 Milli seconds
+				Sleep(90);								// For Delay Snake 85 Milli seconds
 				if (_kbhit()) {
 					cDirection = _getch();
 					if (cDirection == KiRight || cDirection == KiLeft || cDirection == KiUp || cDirection == KiDown) {
@@ -588,7 +602,7 @@ int main() {
 					Sleep(1000);
 					iHit = 1;	break;
 				}
-				for (int i = 1; i<ilength; i++) {					//collision condition for it self
+				for (int i = 1; i<snake.ilength; i++) {					//collision condition for it self
 					if (snake.s_loc[0] == snake.s_loc[i]) {
 						Sleep(1000);
 						iHit = 1;
@@ -600,7 +614,7 @@ int main() {
 					iScore += 5;
 					food.Food();
 					iCount++;
-					ilength++;
+					snake.ilength++;
 					if (iCount == 5) {
 						bfood.BigFood();				//show BigFood
 						iCount = 0;
@@ -626,18 +640,21 @@ int main() {
 				}
 
 				// food is generate on the snake 
-				for (int i = 1; i < ilength; i++) {
+				for (int i = 1; i < snake.ilength; i++) {
 					if (food.eat == snake.s_loc[i]) { food.Food(); /* for loop break */ }
 				}
-				for (int i = 1; i < ilength; i++) {
+				for (int i = 1; i < snake.ilength; i++) {
 					if (food.eat == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
 				}
 				//----------------------------
 				
 			}
+			
 			if(iHit == 1) {
 				system("cls");
 				b.ShowGameOverScreen();
+				getch();
+				goto RESTARTED_SNAKE_GAME;
 			}
 		} // end if
 
@@ -810,7 +827,7 @@ int main() {
 
 
 				// ------------ collision condition for it self of user snake ------ //
-				for (int i = 1; i<=ilength; i++) {
+				for (int i = 1; i<=snake.ilength; i++) {
 					if (snake.s_loc[0] == snake.s_loc[i]) { 
 						Sleep(1000); 
 						iHit = 1; 
@@ -818,39 +835,37 @@ int main() {
 						/* for loop break */ 
 					}
 				}
-				if(iHit == 1) {
-					break;    // break while loop
-				}
+				if(iHit == 1) { break;    /* break while loop */ }
+				
 				//-------------------------- Score for Comp Snake --------------------------------//
 				if (Comp_snake.s_loc[0] == food.eat) {
 					iCompScore += 5;
 					bfood.printScoreOfComputerSnake();
 					food.Food();
-					iComLenght++;
+					Comp_snake.ilength++;
 				}
 				//-------------------------- Score for user Snake --------------------------------//
 				if (snake.s_loc[0] == food.eat) {
 					iScore += 5;
 					food.Food();
 					bfood.PrintScore();
-					ilength++;
+					snake.ilength++;
 				}
 				// --------------------------------------------------------------------//
 				
 				//------------- if food generate on snake -----------------//
-				for (int i = 1; i < ilength; i++) {
+				for (int i = 1; i < snake.ilength; i++) {
 					if (food.eat == snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
-					if (food.eat == Comp_snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
 				}
 				//--------------------------------------------------------//
 
 				//--------------- if food generates on computer snake --------------------//
-				for (int i = 0; i < ilength; i++) {
+				for (int i = 0; i < Comp_snake.ilength; i++) {
 					if (Comp_snake.s_loc[0] == snake.s_loc[i]) { food.Food(); break; /* for loop break */ }
 				}
 				//------------------------------------------------------------------------//
 				//================== if Computer snake hit itself =======================//
-				for (int i = 1; i<=ilength; i++) {
+				for (int i = 1; i<=Comp_snake.ilength; i++) {
 					if (Comp_snake.s_loc[0] == Comp_snake.s_loc[i]) {
 						Sleep(1000);
 						iHit = 1;
@@ -864,12 +879,12 @@ int main() {
 			if (iHit == 1) {
 				system("cls");
 				b.ShowGameOverScreenOfBattle();
+				isgame = false;
 			}
 		} // end else if
-		else if(Choice == '3') {
-			
-		}
-	} while (Choice != 6); // end of first while loop (like True/False}
+	
+	} while (Choice != '3'); // end of first while loop (like True/False}
+
 } // end of main function
 
 // AI of Computer Snake  //
