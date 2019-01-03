@@ -6,15 +6,6 @@ Testing By: Asad Tagar
 Bug Fixed by: Aminullah Taj Muhammad
 */
 
-/*
-	1) Insert Time Duration between battle
-	2) Make Same Palace Logic
-	3) Controlling Length of Both Snakes
-	4) Handle Scroing
-	5) Learn About Filing and using in it
-	6) Make Again and Again Run Logic 
-*/
-
 #include<iostream>
 #include<conio.h>
 #include<windows.h>
@@ -509,13 +500,6 @@ public:
 		cout << "Game Over: \n";
 		gotoxy(30, 12);
 		SetConsoleTextAttribute(hConsole, 12);
-		if(iScore < iCompScore) {								//for calculating score of one of them
-			cout << "Computer win! ";
-		} else if(iScore == iCompScore) {
-			cout<<"Match is Draw";
-		} else {
-			cout << "You Win: ";
-		}
 	}
 
 };
@@ -541,6 +525,8 @@ int main() {
 	b.WelcomeScreen();
 	//=====================================================//
 	int min = 1, sec = 59, tenSecond = 0, checkForTimeUp = 0; 		// show time for battle
+	int checkSnake = 0 , checkCompSnake = 0;			// for check that who wins and show shoe result in gameover screen
+	
 	do {
 	RESTARTED_SNAKE_GAME:
 		Choice = _getch();
@@ -733,6 +719,8 @@ int main() {
 					if(checkForTimeUp == 2) {
 						Sleep(1000);
 						iHit = 1;					// for break loop variable
+						checkCompSnake = 1;
+						checkSnake = 1;
 						break;
 					}
 				}
@@ -749,18 +737,22 @@ int main() {
 				// ----------- Collision Condition User Snake --------------//
 				if (snake.s_loc[0].y == 2) {   			// For Collision With Upper Boundary 
 					Sleep(1000);
+					checkSnake = 1;
 					iHit = 1;	break;
 				}
 				if (snake.s_loc[0].y == TableHeight + 2) {		// For Collision With Lower Boundary
 					Sleep(1000);
+					checkSnake = 1;
 					iHit = 1;	break;
 				}
 				if (snake.s_loc[0].x == 5) { 					// For Collision With Left Boundary
 					Sleep(1000);
+					checkSnake = 1;
 					iHit = 1;	break;
 				}
 				if (snake.s_loc[0].x == TableWidth) {			// For Collision With Right Boundary
 					Sleep(1000);
+					checkSnake = 1;
 					iHit = 1;	break;
 				}
 
@@ -831,6 +823,7 @@ int main() {
 					if (snake.s_loc[0] == snake.s_loc[i]) { 
 						Sleep(1000); 
 						iHit = 1; 
+						checkSnake = 1;
 						break; 
 						/* for loop break */ 
 					}
@@ -869,6 +862,7 @@ int main() {
 					if (Comp_snake.s_loc[0] == Comp_snake.s_loc[i]) {
 						Sleep(1000);
 						iHit = 1;
+						checkCompSnake = 1;
 						break;
 						/* for loop break */
 					}
@@ -880,6 +874,40 @@ int main() {
 				system("cls");
 				b.ShowGameOverScreenOfBattle();
 				isgame = false;
+			}
+			
+			// check when user snake hit it or boundary and show result in gameover screen
+			if(iHit == 1 && checkSnake == 1) {
+				gotoxy(30, 12);
+				SetConsoleTextAttribute(hConsole, 12);
+				cout<<"You Lose !";
+				isgame = false;
+			}
+			
+			// check when Comp snake hit it or boundary and show result in gameover screen
+			if(iHit == 1 && checkCompSnake == 1) {
+				gotoxy(30, 12);
+				SetConsoleTextAttribute(hConsole, 12);
+				cout<<"You Win !";
+				isgame = false;
+			}
+			// check winner and loser when time is over
+			if(iHit == 1 && checkCompSnake == 1 && checkSnake == 1) {
+				if(iScore < iCompScore) {
+					
+					gotoxy(30, 12);
+					SetConsoleTextAttribute(hConsole, 12);
+					cout<<"You Lose !";
+					isgame = false;
+				
+				} else {
+					
+					gotoxy(30, 12);
+					SetConsoleTextAttribute(hConsole, 12);
+					cout<<"You Win !";
+					isgame = false;
+				
+				}
 			}
 		} // end else if
 	
