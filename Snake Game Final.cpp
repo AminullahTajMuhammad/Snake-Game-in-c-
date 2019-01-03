@@ -454,8 +454,6 @@ public:
 		cout << iScore;
 		SetConsoleTextAttribute(hConsole, 14);
 		gotoxy(5, 22);
-		SetConsoleTextAttribute(hConsole, 480);
-		cout<<"Enter any key to continue: ";		
 	}
 	
 	void ShowGameOverScreenOfBattle() {
@@ -639,13 +637,11 @@ int main() {
 			if(iHit == 1) {
 				system("cls");
 				b.ShowGameOverScreen();
-				getch();
-				goto RESTARTED_SNAKE_GAME;
 			}
 		} // end if
 
 		//+++++++++++++++++++++++++++++++++++ Computer Vs User Snake Game +++++++++++++++++++++++++++++++//
-		else if (Choice == '2') {
+		if (Choice == '2') {
 			system("cls");
 			b.SnakeBoundary();
 			snake.InitSnake();
@@ -656,7 +652,7 @@ int main() {
 			bfood.showTimeForBattle(min, sec);
 			Comp_snake.Comp_InitSnake(5, 40, 15, 75);
 			Comp_snake.ShowCompSnake();
-			_getch();
+			getch();
 			while (true) {
 				//============= USER SNAKE DIRECTION AND MOVEMENT ============//
 				if (snake.UserInput == KiRight) {
@@ -873,7 +869,8 @@ int main() {
 			if (iHit == 1) {
 				system("cls");
 				b.ShowGameOverScreenOfBattle();
-				isgame = false;
+				system("cls");
+				b.WelcomeScreen();
 			}
 			
 			// check when user snake hit it or boundary and show result in gameover screen
@@ -881,7 +878,7 @@ int main() {
 				gotoxy(30, 12);
 				SetConsoleTextAttribute(hConsole, 12);
 				cout<<"You Lose !";
-				isgame = false;
+				getch();
 			}
 			
 			// check when Comp snake hit it or boundary and show result in gameover screen
@@ -889,7 +886,7 @@ int main() {
 				gotoxy(30, 12);
 				SetConsoleTextAttribute(hConsole, 12);
 				cout<<"You Win !";
-				isgame = false;
+				getch();
 			}
 			// check winner and loser when time is over
 			if(iHit == 1 && checkCompSnake == 1 && checkSnake == 1) {
@@ -908,9 +905,9 @@ int main() {
 					isgame = false;
 				
 				}
+				
 			}
 		} // end else if
-	
 	} while (Choice != '3'); // end of first while loop (like True/False}
 
 } // end of main function
