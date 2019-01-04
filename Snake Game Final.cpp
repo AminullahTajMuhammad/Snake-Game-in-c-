@@ -14,6 +14,9 @@ Bug Fixed by: Aminullah Taj Muhammad
 using namespace std;
 HANDLE hConsole;			// For Console Color
 
+int returnX();
+int returnY();
+
 //----------- For Array Keys Code -----------------------//
 enum DirectionKeyCode { KiLeft = 75, KiRight = 77, KiUp = 72, KiDown = 80, ESC = 27 };
 
@@ -78,8 +81,21 @@ public:
 		SetConsoleTextAttribute(hConsole, 14);
 		time_t t;
 		srand(time(&t));
-		x = (rand() % 50) + 9;					//7			//RANDOMLY GENERATE FOOD OF X AXIS
-		y = (rand() % 10) + 5;					//3			//RANDOMLY GENERATE FOOD OF Y AXIS
+		//x = returnX();			//(rand() % 50) + 9   		//7			//RANDOMLY GENERATE FOOD OF X AXIS
+		//y = returnY();					//3			//RANDOMLY GENERATE FOOD OF Y AXIS
+		if (isgame)
+		{
+			x = 30;
+			y = 7;
+			isgame = false;
+		}
+		else
+		{
+			x = 10;
+			y = 7;
+			isgame = true;
+		}
+		
 		gotoxy(x, y);
 		cout << "\x01";
 		eat.setxy(x, y);
@@ -526,7 +542,6 @@ int main() {
 	int checkSnake = 0 , checkCompSnake = 0;			// for check that who wins and show shoe result in gameover screen
 	
 	do {
-	RESTARTED_SNAKE_GAME:
 		Choice = _getch();
 		if (Choice == '1') {
 			system("cls");
@@ -802,13 +817,14 @@ int main() {
 
 		// ----- ----- ---- ----- When snake and food in same place but directions is changed ------ ------- ------//
 				// ----------------------- for left and right side ----------------------//
-				// for right side
-				if (Comp_snake.s_loc[0].y == food.y) {
-				}
-
-				// for left side 
-				if (Comp_snake.s_loc[0].y == food.y && Comp_snake.UserInput == KiLeft) {
-				
+				// for left side
+				if(food.x != Comp_snake.s_loc[0].x && Comp_snake.UserInput == KiLeft && food.y == Comp_snake.s_loc[0].y) {
+					if(food.y > 2 && Comp_snake.UserInput == KiLeft) {
+						Comp_snake.UserInput = KiDown;
+					}
+					if(food.y < TableHeight && Comp_snake.UserInput == KiLeft) {
+						Comp_snake.UserInput = KiUp;
+					}
 				}
 			
 		// ------------------------------------------------------------------------------------------------------ //
@@ -831,7 +847,7 @@ int main() {
 					iCompScore += 5;
 					bfood.printScoreOfComputerSnake();
 					food.Food();
-					Comp_snake.ilength++;
+					//Comp_snake.ilength++;
 				}
 				//-------------------------- Score for user Snake --------------------------------//
 				if (snake.s_loc[0] == food.eat) {
@@ -869,8 +885,6 @@ int main() {
 			if (iHit == 1) {
 				system("cls");
 				b.ShowGameOverScreenOfBattle();
-				system("cls");
-				b.WelcomeScreen();
 			}
 			
 			// check when user snake hit it or boundary and show result in gameover screen
@@ -878,7 +892,6 @@ int main() {
 				gotoxy(30, 12);
 				SetConsoleTextAttribute(hConsole, 12);
 				cout<<"You Lose !";
-				getch();
 			}
 			
 			// check when Comp snake hit it or boundary and show result in gameover screen
@@ -886,7 +899,6 @@ int main() {
 				gotoxy(30, 12);
 				SetConsoleTextAttribute(hConsole, 12);
 				cout<<"You Win !";
-				getch();
 			}
 			// check winner and loser when time is over
 			if(iHit == 1 && checkCompSnake == 1 && checkSnake == 1) {
@@ -895,14 +907,12 @@ int main() {
 					gotoxy(30, 12);
 					SetConsoleTextAttribute(hConsole, 12);
 					cout<<"You Lose !";
-					isgame = false;
 				
 				} else {
 					
 					gotoxy(30, 12);
 					SetConsoleTextAttribute(hConsole, 12);
 					cout<<"You Win !";
-					isgame = false;
 				
 				}
 				
@@ -1035,4 +1045,27 @@ char DirectionOfComputer(char CompKey, CSnake Comp_snake, CFood food) {
 	}
 	//--------------------------------------------------------------------------------//
 	return CompKey;
+}
+
+int returnX() {
+	Clocation loc;
+	if(isgame) {
+		loc.x = 30;
+		isgame = false;
+	} else {
+		loc.x = 10;
+		isgame = true;
+	}
+	return loc.x;
+}
+int returnY() {
+	Clocation loc;
+	if(isgame) {
+		loc.y = 7;
+		isgame = false;
+	} else {
+		loc.y = 7;
+		isgame = true;
+	}
+	return loc.y;
 }
