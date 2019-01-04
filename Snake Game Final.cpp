@@ -81,21 +81,21 @@ public:
 		SetConsoleTextAttribute(hConsole, 14);
 		time_t t;
 		srand(time(&t));
-		//x = returnX();			//(rand() % 50) + 9   		//7			//RANDOMLY GENERATE FOOD OF X AXIS
-		//y = returnY();					//3			//RANDOMLY GENERATE FOOD OF Y AXIS
-		if (isgame)
+		x = (rand() % 50) + 9; 		//7			//RANDOMLY GENERATE FOOD OF X AXIS
+		y = rand() % 15 + 3;					//3			//RANDOMLY GENERATE FOOD OF Y AXIS
+		/*if (isgame)
 		{
-			x = 30;
-			y = 7;
+			x = 50;
+			y = 15;
 			isgame = false;
 		}
 		else
 		{
-			x = 10;
-			y = 7;
+			x = 30;
+			y = 15;
 			isgame = true;
-		}
-		
+		}*/
+
 		gotoxy(x, y);
 		cout << "\x01";
 		eat.setxy(x, y);
@@ -137,14 +137,14 @@ public:
 		SetConsoleTextAttribute(hConsole, 13);
 		cout << iScore;
 	}
-	
+
 	void printScoreOfComputerSnake() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
 		SetConsoleTextAttribute(hConsole, 15);
 		gotoxy(45, 22);
 		cout << "Computer Score is: ";
 		SetConsoleTextAttribute(hConsole, 10);
-		cout<< iCompScore;
+		cout << iCompScore;
 	}
 	void ShowTime() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
@@ -158,20 +158,20 @@ public:
 		gotoxy(30, 22);
 		cout << "Time: ";
 		SetConsoleTextAttribute(hConsole, 12);
-		cout<<min<<":"<<sec;
-		if(sec<10) {
-			gotoxy(39,22);
-			cout<<" ";
+		cout << min << ":" << sec;
+		if (sec<10) {
+			gotoxy(39, 22);
+			cout << " ";
 		}
 	}
-	
+
 };
 class CSnake : public Clocation {
 public:
 	int ilength = 5;
 	Clocation s_loc[100];
 	char UserInput = KiRight;
-	
+
 	//========== Initial lenght of user snake ==========//
 	void InitSnake() {
 		s_loc[0].setxy(20, 7);
@@ -351,20 +351,20 @@ public:
 			cout << char(196);
 		}
 		SetConsoleTextAttribute(hConsole, 13);             //Pink Color Code=13
-		gotoxy(31,19);
-        cout<<"<Game Options>";
-        SetConsoleTextAttribute(hConsole, 15);             //White Color Code=15
-        gotoxy(2,21);
-    	cout<<"1: ";
-        SetConsoleTextAttribute(hConsole, 2);             //blue-Green Color Code=3
-        gotoxy(5,21);
-	    cout<<"Play New Single Player Game";
-        SetConsoleTextAttribute(hConsole, 15);             //White Color Code=15
-        gotoxy(2,22);
-        cout<<"2: ";
-        SetConsoleTextAttribute(hConsole, 2);             //blue-Green Color Code=3
-        gotoxy(5,22);
-        cout<<"Play New Player VS Computer Game";
+		gotoxy(31, 19);
+		cout << "<Game Options>";
+		SetConsoleTextAttribute(hConsole, 15);             //White Color Code=15
+		gotoxy(2, 21);
+		cout << "1: ";
+		SetConsoleTextAttribute(hConsole, 2);             //blue-Green Color Code=3
+		gotoxy(5, 21);
+		cout << "Play New Single Player Game";
+		SetConsoleTextAttribute(hConsole, 15);             //White Color Code=15
+		gotoxy(2, 22);
+		cout << "2: ";
+		SetConsoleTextAttribute(hConsole, 2);             //blue-Green Color Code=3
+		gotoxy(5, 22);
+		cout << "Play New Player VS Computer Game";
 		gotoxy(1, 24);
 		SetConsoleTextAttribute(hConsole, 7);             //Light White Color Code=7
 		cout << "Press Any Number to Play: ";
@@ -372,11 +372,11 @@ public:
 	}
 	void SnakeBoundary() {
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
-		
+
 		//---------- For Upper text on Board ------------------- //
 		SetConsoleTextAttribute(hConsole, 480);
-		gotoxy(6,1);
-		cout<<"                    Snake game using OOP in C++                 ";
+		gotoxy(6, 1);
+		cout << "                    Snake game using OOP in C++                 ";
 		//--------------------------------------------------------///
 		SetConsoleTextAttribute(hConsole, 11);
 		for (int i = 0; i <= TableSides; i++) {      // --
@@ -471,7 +471,7 @@ public:
 		SetConsoleTextAttribute(hConsole, 14);
 		gotoxy(5, 22);
 	}
-	
+
 	void ShowGameOverScreenOfBattle() {
 		char cpress;
 		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);               //For Color
@@ -539,8 +539,8 @@ int main() {
 	b.WelcomeScreen();
 	//=====================================================//
 	int min = 1, sec = 59, tenSecond = 0, checkForTimeUp = 0; 		// show time for battle
-	int checkSnake = 0 , checkCompSnake = 0;			// for check that who wins and show shoe result in gameover screen
-	
+	int checkSnake = 0, checkCompSnake = 0;			// for check that who wins and show shoe result in gameover screen
+
 	do {
 		Choice = _getch();
 		if (Choice == '1') {
@@ -646,10 +646,10 @@ int main() {
 					if (food.eat == snake.s_loc[i]) { bfood.BigFood(); /* for loop break */ }
 				}
 				//----------------------------
-				
+
 			}
-			
-			if(iHit == 1) {
+
+			if (iHit == 1) {
 				system("cls");
 				b.ShowGameOverScreen();
 			}
@@ -667,7 +667,7 @@ int main() {
 			bfood.showTimeForBattle(min, sec);
 			Comp_snake.Comp_InitSnake(5, 40, 15, 75);
 			Comp_snake.ShowCompSnake();
-			getch();
+			_getch();
 			while (true) {
 				//============= USER SNAKE DIRECTION AND MOVEMENT ============//
 				if (snake.UserInput == KiRight) {
@@ -687,7 +687,7 @@ int main() {
 					else { snake.DirUp(); CurrentDirection = KiUp; }
 				}
 				snake.ShowSnake();
-				
+
 				// same direction of snake until pressed any key from keyboard
 				if (_kbhit()) {
 					cDirection = _getch();
@@ -716,18 +716,18 @@ int main() {
 				Comp_snake.ShowCompSnake();
 				//==========================================================//
 				Sleep(90);				// For Delay Snake 85 Milli seconds
-				
+
 				// --------------- Time for battle --------------------- //
 				tenSecond++;
-				if(tenSecond == 10) {
+				if (tenSecond == 10) {
 					tenSecond = 0;
 					sec--;
-					if(sec == 0) {
+					if (sec == 0) {
 						min--;
 						sec = 60;
-						checkForTimeUp++;	
+						checkForTimeUp++;
 					}
-					if(checkForTimeUp == 2) {
+					if (checkForTimeUp == 2) {
 						Sleep(1000);
 						iHit = 1;					// for break loop variable
 						checkCompSnake = 1;
@@ -743,8 +743,8 @@ int main() {
 				// 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		 //
 
 				//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++===//
-				
-				
+
+
 				// ----------- Collision Condition User Snake --------------//
 				if (snake.s_loc[0].y == 2) {   			// For Collision With Upper Boundary 
 					Sleep(1000);
@@ -771,11 +771,11 @@ int main() {
 				//................... for hit the up boundary ..............//
 				//...
 				//............... for hit the left boundary ...............//
-				if(Comp_snake.s_loc[0].x == TableWidth-1 && Comp_snake.UserInput == KiLeft) { 
-					if(food.y > snake.s_loc[0].y ) {
+				if (Comp_snake.s_loc[0].x == TableWidth - 1 && Comp_snake.UserInput == KiLeft) {
+					if (food.y > snake.s_loc[0].y) {
 						Comp_snake.UserInput = KiDown;
 					}
-					if(food.y < snake.s_loc[0].y ) {
+					if (food.y < snake.s_loc[0].y) {
 						Comp_snake.UserInput = KiUp;
 					}
 				}
@@ -796,7 +796,7 @@ int main() {
 				if (Comp_snake.s_loc[0].y == 3 && Comp_snake.UserInput == KiUp) {
 					if (food.x > snake.s_loc[0].x) {
 						Comp_snake.UserInput = KiRight;
-					} 
+					}
 					if (food.x < snake.s_loc[0].x) {
 						Comp_snake.UserInput = KiLeft;
 					}
@@ -815,39 +815,57 @@ int main() {
 				//---------------------------------------------------------------------------//
 
 
-		// ----- ----- ---- ----- When snake and food in same place but directions is changed ------ ------- ------//
+				// ----- ----- ---- ----- When snake and food in same place but directions is changed ---------------------//
 				// ----------------------- for left and right side ----------------------//
+				// --------------------------- Horizontal Side ------------------------- //
 				// for left side
-				if(food.x != Comp_snake.s_loc[0].x && Comp_snake.UserInput == KiLeft && food.y == Comp_snake.s_loc[0].y) {
-					if(food.y > 2 && Comp_snake.UserInput == KiLeft) {
+				/*if (food.x != Comp_snake.s_loc[0].x && Comp_snake.UserInput == KiLeft && food.y == Comp_snake.s_loc[0].y) {
+					if (food.y > 2 && Comp_snake.UserInput == KiLeft) {
 						Comp_snake.UserInput = KiDown;
 					}
-					if(food.y < TableHeight && Comp_snake.UserInput == KiLeft) {
+					if (food.y < TableHeight && Comp_snake.UserInput == KiLeft) {
 						Comp_snake.UserInput = KiUp;
 					}
 				}
-			
-		// ------------------------------------------------------------------------------------------------------ //
+				// for rigth side
+				if (food.x != Comp_snake.s_loc[0].x && Comp_snake.UserInput == KiRight && food.y == Comp_snake.s_loc[0].y) {
+					if (food.y > 2 && Comp_snake.UserInput == KiRight) {
+						Comp_snake.UserInput = KiDown;
+					}
+					if (food.y < TableHeight && Comp_snake.UserInput == KiRight) {
+						Comp_snake.UserInput = KiUp;
+					}
+				}*/
+				// -------------------------------------- for left and right side ----------------------------------------//
+
+
+				// -------------------------------------------- Vertical Side ------------------------------------------- //
+				// for 
+				if (food.y != Comp_snake.s_loc[0].y && Comp_snake.UserInput == KiUp && food.x == Comp_snake.s_loc[0].x) {
+					
+				}
+
+				// ------------------------------------------------------------------------------------------------------ //
 
 
 				// ------------ collision condition for it self of user snake ------ //
-				for (int i = 1; i<=snake.ilength; i++) {
-					if (snake.s_loc[0] == snake.s_loc[i]) { 
-						Sleep(1000); 
-						iHit = 1; 
+				for (int i = 1; i <= snake.ilength; i++) {
+					if (snake.s_loc[0] == snake.s_loc[i]) {
+						Sleep(1000);
+						iHit = 1;
 						checkSnake = 1;
-						break; 
-						/* for loop break */ 
+						break;
+						/* for loop break */
 					}
 				}
-				if(iHit == 1) { break;    /* break while loop */ }
-				
+				if (iHit == 1) { break;    /* break while loop */ }
+
 				//-------------------------- Score for Comp Snake --------------------------------//
 				if (Comp_snake.s_loc[0] == food.eat) {
 					iCompScore += 5;
 					bfood.printScoreOfComputerSnake();
 					food.Food();
-					//Comp_snake.ilength++;
+					Comp_snake.ilength++;
 				}
 				//-------------------------- Score for user Snake --------------------------------//
 				if (snake.s_loc[0] == food.eat) {
@@ -857,7 +875,7 @@ int main() {
 					snake.ilength++;
 				}
 				// --------------------------------------------------------------------//
-				
+
 				//------------- if food generate on snake -----------------//
 				for (int i = 1; i < snake.ilength; i++) {
 					if (food.eat == snake.s_loc[i]) { food.Food(); break;/* for loop break */ }
@@ -870,7 +888,7 @@ int main() {
 				}
 				//------------------------------------------------------------------------//
 				//================== if Computer snake hit itself =======================//
-				for (int i = 1; i<=Comp_snake.ilength; i++) {
+				for (int i = 1; i <= Comp_snake.ilength; i++) {
 					if (Comp_snake.s_loc[0] == Comp_snake.s_loc[i]) {
 						Sleep(1000);
 						iHit = 1;
@@ -886,36 +904,37 @@ int main() {
 				system("cls");
 				b.ShowGameOverScreenOfBattle();
 			}
-			
+
 			// check when user snake hit it or boundary and show result in gameover screen
-			if(iHit == 1 && checkSnake == 1) {
+			if (iHit == 1 && checkSnake == 1) {
 				gotoxy(30, 12);
 				SetConsoleTextAttribute(hConsole, 12);
-				cout<<"You Lose !";
+				cout << "You Lose !";
 			}
-			
+
 			// check when Comp snake hit it or boundary and show result in gameover screen
-			if(iHit == 1 && checkCompSnake == 1) {
+			if (iHit == 1 && checkCompSnake == 1) {
 				gotoxy(30, 12);
 				SetConsoleTextAttribute(hConsole, 12);
-				cout<<"You Win !";
+				cout << "You Win !";
 			}
 			// check winner and loser when time is over
-			if(iHit == 1 && checkCompSnake == 1 && checkSnake == 1) {
-				if(iScore < iCompScore) {
-					
+			if (iHit == 1 && checkCompSnake == 1 && checkSnake == 1) {
+				if (iScore < iCompScore) {
+
 					gotoxy(30, 12);
 					SetConsoleTextAttribute(hConsole, 12);
-					cout<<"You Lose !";
-				
-				} else {
-					
-					gotoxy(30, 12);
-					SetConsoleTextAttribute(hConsole, 12);
-					cout<<"You Win !";
-				
+					cout << "You Lose !";
+
 				}
-				
+				else {
+
+					gotoxy(30, 12);
+					SetConsoleTextAttribute(hConsole, 12);
+					cout << "You Win !";
+
+				}
+
 			}
 		} // end else if
 	} while (Choice != '3'); // end of first while loop (like True/False}
@@ -1045,27 +1064,4 @@ char DirectionOfComputer(char CompKey, CSnake Comp_snake, CFood food) {
 	}
 	//--------------------------------------------------------------------------------//
 	return CompKey;
-}
-
-int returnX() {
-	Clocation loc;
-	if(isgame) {
-		loc.x = 30;
-		isgame = false;
-	} else {
-		loc.x = 10;
-		isgame = true;
-	}
-	return loc.x;
-}
-int returnY() {
-	Clocation loc;
-	if(isgame) {
-		loc.y = 7;
-		isgame = false;
-	} else {
-		loc.y = 7;
-		isgame = true;
-	}
-	return loc.y;
 }
